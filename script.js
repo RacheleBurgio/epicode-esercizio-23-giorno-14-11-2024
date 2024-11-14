@@ -3,6 +3,8 @@ const secondLoadBtn = document.getElementById('secondLoadBtn')
 const imgNew = document.getElementsByClassName(
   'bd-placeholder-img card-img-top'
 )
+const cards = document.querySelectorAll('.card')
+
 const API_KEY = '5rOfqg3sEG6IqSidyB26BBiZVwur4nqaCvrhpCS2IcI6TA26RWkIzEY1'
 const URLKittens = 'https://api.pexels.com/v1/search?query=Kittens'
 const URLBooks = 'https://api.pexels.com/v1/search?query=Books'
@@ -65,4 +67,16 @@ const load = function () {
   secondLoadBtn.onclick = fetchImg2
 }
 
+const hideCards = function () {
+  cards.forEach((card) => {
+    const hideBtn = card.querySelector('.hide')
+    if (hideBtn) {
+      hideBtn.addEventListener('click', () => {
+        card.classList.add('d-none')
+      })
+    }
+  })
+}
+
+hideCards()
 load()
