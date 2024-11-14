@@ -1,0 +1,68 @@
+const loadBtn = document.getElementById('loadBtn')
+const secondLoadBtn = document.getElementById('secondLoadBtn')
+const imgNew = document.getElementsByClassName(
+  'bd-placeholder-img card-img-top'
+)
+const API_KEY = '5rOfqg3sEG6IqSidyB26BBiZVwur4nqaCvrhpCS2IcI6TA26RWkIzEY1'
+const URLKittens = 'https://api.pexels.com/v1/search?query=Kittens'
+const URLBooks = 'https://api.pexels.com/v1/search?query=Books'
+
+const fetchImg1 = () => {
+  fetch(URLKittens, {
+    method: 'GET',
+    headers: {
+      Authorization: API_KEY,
+    },
+  })
+    .then((result) => {
+      console.log('result', result)
+      console.log('fetch terminata correttamente')
+      if (result.ok) {
+        return result.json()
+      } else {
+        throw new Error('404- not found')
+      }
+    })
+    .then((photo) => {
+      for (let i = 0; i < photo.photos.length && i < imgNew.length; i++) {
+        imgNew[i].setAttribute('src', photo.photos[i].src.landscape)
+      }
+      console.log('photo', photo.photos[1].src.landscape)
+    })
+    .catch((errore) => {
+      console.log(errore)
+    })
+}
+
+const fetchImg2 = () => {
+  fetch(URLBooks, {
+    method: 'GET',
+    headers: {
+      Authorization: API_KEY,
+    },
+  })
+    .then((result) => {
+      console.log('result', result)
+      console.log('fetch terminata correttamente')
+      if (result.ok) {
+        return result.json()
+      } else {
+        throw new Error('404- not found')
+      }
+    })
+    .then((photo) => {
+      for (let i = 0; i < photo.photos.length && i < imgNew.length; i++) {
+        imgNew[i].setAttribute('src', photo.photos[i].src.landscape)
+      }
+    })
+    .catch((errore) => {
+      console.log(errore)
+    })
+}
+
+const load = function () {
+  loadBtn.onclick = fetchImg1
+  secondLoadBtn.onclick = fetchImg2
+}
+
+load()
